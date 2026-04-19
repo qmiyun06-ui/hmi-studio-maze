@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>통합 설문 프로토타입 (1~3번)</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#000; display:flex; align-items:center; justify-content:center; min-height:100vh; font-family:sans-serif; }
+
+    .screen { display:none; width:100%; }
+    .screen.active { display:flex; }
+
+    /* 안내/완료 화면 공통 */
+    .info-screen {
+      flex-direction:column; align-items:center; justify-content:center;
+      min-height:100vh; padding:40px; text-align:center;
+      color:white;
+    }
+    .info-screen h2 { font-size:22px; margin-bottom:20px; line-height:1.8; }
+    .info-screen p { font-size:16px; color:#bbb; line-height:2; max-width:640px; margin-bottom:30px; }
+    .check { font-size:64px; margin-bottom:20px; }
+    .progress {
+      font-size:14px; color:#888; margin-bottom:16px; letter-spacing:2px;
+    }
+
+    /* Q1 - 음악 (노란 테마) */
+    .q1-theme { background:#1a1a2e; }
+    .q1-theme .hl { color:#f4c430; font-weight:bold; }
+    .q1-theme .btn { background:#f4c430; color:#000; }
+    .q1-theme .btn:hover { background:#ffd700; }
+    .q1-theme .spot:hover {
+      border:3px solid #f4c430;
+      background:rgba(244,196,48,0.15);
+      box-shadow:0 0 14px rgba(244,196,48,0.5);
+    }
+
+    /* Q2 - 넷플릭스 (빨간 테마) */
+    .q2-theme { background:#1a1a2e; }
+    .q2-theme .hl { color:#e50914; font-weight:bold; }
+    .q2-theme .btn { background:#e50914; color:#fff; }
+    .q2-theme .btn:hover { background:#f40612; }
+    .q2-theme .spot:hover {
+      border:3px solid #e50914;
+      background:rgba(229,9,20,0.15);
+      box-shadow:0 0 16px rgba(229,9,20,0.5);
+    }
+
+    /* Q3 - 게임 (노란 테마 2) */
+    .q3-theme { background:#1a1a2e; }
+    .q3-theme .hl { color:#f5c518; font-weight:bold; }
+    .q3-theme .btn { background:#f5c518; color:#000; }
+    .q3-theme .btn:hover { background:#ffd700; }
+    .q3-theme .spot:hover {
+      border:3px solid #f5c518;
+      background:rgba(245,197,24,0.15);
+      box-shadow:0 0 16px rgba(245,197,24,0.5);
+    }
+
+    /* 최종 완료 화면 */
+    .final-theme {
+      background:linear-gradient(135deg, #1a1a2e, #16213e);
+    }
+    .final-theme .btn { background:#4caf50; color:#fff; }
+    .final-theme .btn:hover { background:#5cbf60; }
+
+    .btn {
+      border:none; padding:14px 44px; font-size:17px; font-weight:bold;
+      border-radius:30px; cursor:pointer;
+    }
+
+    .proto { position:relative; width:100%; }
+    .proto img { width:100%; display:block; }
+    .spot {
+      position:absolute; cursor:pointer; border-radius:6px;
+      border:3px solid transparent; transition:all 0.15s;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- 전체 인트로 -->
+<!-- ============================================ -->
+<div class="screen active info-screen q1-theme" id="main-intro">
+  <h2>안녕하세요. 설문에 응답해주셔서 감사합니다 🙏</h2>
+  <p>
+    본 설문은 총 <span class="hl">3개의 문항</span>으로 구성되어 있습니다.<br><br>
+    각 문항에서 제시된 콘텐츠를<br>
+    화면에서 찾아 선택해 주시면 됩니다.<br><br>
+    문항은 순서대로 진행되며,<br>
+    중간에 중단 없이 끝까지 진행해 주시길 바랍니다.
+  </p>
+  <button class="btn" onclick="goTo('q1-intro')">설문 시작하기 →</button>
+</div>
+
+<!-- ============================================ -->
+<!-- 1번 문항: 음악 (All I Want for Christmas Is You) -->
+<!-- ============================================ -->
+<div class="screen info-screen q1-theme" id="q1-intro">
+  <div class="progress">— 1 / 3 —</div>
+  <h2>1번 문항</h2>
+  <p>
+    콘텐츠에서 <span class="hl">"머라이어 캐리의 All I Want for Christmas Is You"</span>를<br>
+    찾아 선택해 주시면 됩니다.
+  </p>
+  <button class="btn" onclick="goTo('q1-s1')">시작하기 →</button>
+</div>
+
+<!-- 1-1: 1.jpg -->
+<div class="screen" id="q1-s1">
+  <div class="proto">
+    <img src="1.jpg" alt="화면1-1">
+    <!-- 앨범 -->
+    <div class="spot"
+         style="left:35.781%; top:39.167%; width:9.688%; height:17.500%;"
+         onclick="goTo('q1-s2')"></div>
+    <!-- 미니플레이어 -->
+    <div class="spot"
+         style="left:61.667%; top:71.296%; width:36.458%; height:17.593%;"
+         onclick="goTo('q1-s2')"></div>
+  </div>
+</div>
+
+<!-- 1-2: 3-2.jpg -->
+<div class="screen" id="q1-s2">
+  <div class="proto">
+    <img src="3-2.jpg" alt="화면1-2">
+    <div class="spot"
+         style="left:38.802%; top:44.815%; width:9.688%; height:17.500%;"
+         onclick="goTo('q1-s3')"></div>
+  </div>
+</div>
+
+<!-- 1-3: 4-3.jpg -->
+<div class="screen" id="q1-s3">
+  <div class="proto">
+    <img src="4-3.jpg" alt="화면1-3">
+    <div class="spot"
+         style="left:35.781%; top:39.167%; width:9.688%; height:17.500%;"
+         onclick="goTo('q1-done')"></div>
+    <div class="spot"
+         style="left:66.406%; top:7.778%; width:26.979%; height:79.074%;"
+         onclick="goTo('q1-done')"></div>
+  </div>
+</div>
+
+<!-- 1번 완료 → 2번으로 자동 연결 -->
+<div class="screen info-screen q1-theme" id="q1-done">
+  <div class="check">✅</div>
+  <h2>1번 문항 완료!</h2>
+  <p>"All I Want for Christmas Is You — Mariah Carey"를<br>정확히 선택하셨습니다.</p>
+  <button class="btn" onclick="goTo('q2-intro')">다음 문항으로 →</button>
+</div>
+
+<!-- ============================================ -->
+<!-- 2번 문항: 넷플릭스 귀멸의칼날 -->
+<!-- ============================================ -->
+<div class="screen info-screen q2-theme" id="q2-intro">
+  <div class="progress">— 2 / 3 —</div>
+  <h2>2번 문항</h2>
+  <p>
+    콘텐츠에서 <span class="hl">"넷플릭스 — 귀멸의칼날"</span>을<br>
+    찾아 선택해 주시면 됩니다.
+  </p>
+  <button class="btn" onclick="goTo('q2-s2')">시작하기 →</button>
+</div>
+
+<!-- 2-① 2.jpg -->
+<div class="screen" id="q2-s2">
+  <div class="proto q2-theme">
+    <img src="2.jpg" alt="화면2-1">
+    <div class="spot"
+         style="left:20.885%;top:34.259%;width:18.021%;height:15.741%;"
+         onclick="goTo('q2-s3')"></div>
+  </div>
+</div>
+
+<!-- 2-② 3.jpg -->
+<div class="screen" id="q2-s3">
+  <div class="proto q2-theme">
+    <img src="3.jpg" alt="화면2-2">
+    <div class="spot"
+         style="left:1.719%;top:69.074%;width:22.760%;height:23.056%;"
+         onclick="goTo('q2-s5')"></div>
+  </div>
+</div>
+
+<!-- 2-③ 5-3.jpg -->
+<div class="screen" id="q2-s5">
+  <div class="proto q2-theme">
+    <img src="5-3.jpg" alt="화면2-3">
+    <div class="spot"
+         style="left:39.427%;top:25.278%;width:18.021%;height:15.741%;"
+         onclick="goTo('q2-s6')"></div>
+    <div class="spot"
+         style="left:50.365%;top:58.611%;width:18.021%;height:15.741%;"
+         onclick="goTo('q2-s8')"></div>
+  </div>
+</div>
+
+<!-- 2-④ 6-4.jpg -->
+<div class="screen" id="q2-s6">
+  <div class="proto q2-theme">
+    <img src="6-4.jpg" alt="화면2-4">
+    <div class="spot"
+         style="left:1.719%;top:69.074%;width:22.760%;height:23.056%;"
+         onclick="goTo('q2-s8')"></div>
+  </div>
+</div>
+
+<!-- 2-⑤ 8-5.jpg -->
+<div class="screen" id="q2-s8">
+  <div class="proto q2-theme">
+    <img src="8-5.jpg" alt="화면2-5">
+    <div class="spot"
+         style="left:20.885%;top:38.148%;width:18.021%;height:15.741%;"
+         onclick="goTo('q2-s9')"></div>
+    <div class="spot"
+         style="left:66.302%;top:34.259%;width:26.875%;height:23.519%;"
+         onclick="goTo('q2-done')"></div>
+  </div>
+</div>
+
+<!-- 2-⑥ 9-6.jpg -->
+<div class="screen" id="q2-s9">
+  <div class="proto q2-theme">
+    <img src="9-6.jpg" alt="화면2-6">
+    <div class="spot"
+         style="left:1.719%;top:69.074%;width:22.760%;height:23.056%;"
+         onclick="goTo('q2-done')"></div>
+  </div>
+</div>
+
+<!-- 2번 완료 → 3번으로 -->
+<div class="screen info-screen q2-theme" id="q2-done">
+  <div class="check">✅</div>
+  <h2>2번 문항 완료!</h2>
+  <p>"넷플릭스 — 귀멸의칼날"을<br>정확히 선택하셨습니다.</p>
+  <button class="btn" onclick="goTo('q3-intro')">다음 문항으로 →</button>
+</div>
+
+<!-- ============================================ -->
+<!-- 3번 문항: Cuphead -->
+<!-- ============================================ -->
+<div class="screen info-screen q3-theme" id="q3-intro">
+  <div class="progress">— 3 / 3 —</div>
+  <h2>3번 문항 (마지막)</h2>
+  <p>
+    콘텐츠에서 <span class="hl">"Cuphead"</span>를<br>
+    찾아 선택해 주시면 됩니다.
+  </p>
+  <button class="btn" onclick="goTo('q3-s7')">시작하기 →</button>
+</div>
+
+<!-- 3-① 7.jpg -->
+<div class="screen" id="q3-s7">
+  <div class="proto q3-theme">
+    <img src="7.jpg" alt="화면3-1">
+    <div class="spot"
+         style="left:20.885%;top:38.056%;width:18.021%;height:15.741%;"
+         onclick="goTo('q3-s8')"></div>
+    <div class="spot"
+         style="left:66.302%;top:34.259%;width:26.927%;height:23.519%;"
+         onclick="goTo('q3-s8')"></div>
+  </div>
+</div>
+
+<!-- 3-② 8-2.jpg -->
+<div class="screen" id="q3-s8">
+  <div class="proto q3-theme">
+    <img src="8-2.jpg" alt="화면3-2">
+    <div class="spot"
+         style="left:40.990%;top:26.481%;width:18.021%;height:15.741%;"
+         onclick="goTo('q3-s9')"></div>
+  </div>
+</div>
+
+<!-- 3-③ 9-3.jpg -->
+<div class="screen" id="q3-s9">
+  <div class="proto q3-theme">
+    <img src="9-3.jpg" alt="화면3-3">
+    <div class="spot"
+         style="left:20.885%;top:34.259%;width:18.021%;height:15.741%;"
+         onclick="goTo('final-done')"></div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- 전체 완료 -->
+<!-- ============================================ -->
+<div class="screen info-screen final-theme" id="final-done">
+  <div class="check">🎉</div>
+  <h2>모든 문항을 완료하셨습니다!</h2>
+  <p>
+    1번 — All I Want for Christmas Is You<br>
+    2번 — 넷플릭스 귀멸의칼날<br>
+    3번 — Cuphead<br><br>
+    소중한 시간 내어 설문에 참여해 주셔서<br>진심으로 감사드립니다 🙏
+  </p>
+  <button class="btn" onclick="goTo('main-intro')">처음으로 돌아가기</button>
+</div>
+
+<script>
+  function goTo(id) {
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
